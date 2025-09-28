@@ -9,7 +9,6 @@ export function loadTamagotchiState(): TamagotchiState | null {
     if (!saved) return null
     return JSON.parse(saved) as TamagotchiState
   } catch (error) {
-    console.log("❌ Error cargando estado:", error)
     localStorage.removeItem(TAMAGOTCHI_KEY)
     return null
   }
@@ -18,9 +17,8 @@ export function loadTamagotchiState(): TamagotchiState | null {
 export function saveTamagotchiState(state: TamagotchiState) {
   try {
     localStorage.setItem(TAMAGOTCHI_KEY, JSON.stringify(state))
-    console.log("💾 Estado guardado:", state)
   } catch (error) {
-    console.log("❌ Error guardando estado:", error)
+    console.warn("❌ Error guardando estado:", error)
   }
 }
 
@@ -36,7 +34,7 @@ export function saveIsPlaying(isPlaying: boolean) {
   try {
     localStorage.setItem(IS_PLAYING_KEY, isPlaying ? "true" : "false")
   } catch (error) {
-    console.log("❌ Error guardando isPlaying:", error)
+    console.warn("❌ Error guardando isPlaying:", error)
   }
 }
 
