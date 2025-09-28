@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+    font-family: 'Kirby Classic';
+    src: url('public/assets/fonts/kirby-classic.ttf') format('truetype');
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -108,6 +113,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+.character-name {
+    font-family: 'Kirby Classic';
 }
 
 @layer base {
