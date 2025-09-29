@@ -117,6 +117,8 @@
 
 .character-name {
     font-family: 'Kirby Classic';
+    -webkit-text-stroke: 0.5px #facc15;
+    color: #ec4899;
 }
 
 @layer base {

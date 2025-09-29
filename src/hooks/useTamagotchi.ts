@@ -35,14 +35,19 @@ export function useTamagotchi() {
     isPlaying,
     state,
     onTick: (newState) => {
+      // Si el Tamagotchi muere, resetear automáticamente
+      if (newState && (newState.age >= 60 || newState.health <= 0 || newState.hunger <= 0)) {
+        clearTamagotchiStorage()
+        setState(null)
+        setIsPlaying(false)
+        return
+      }
       setState(newState)
     }
   })
 
   const doAction = useCallback((action: "play" | "feed" | "sleep") => {
-    if (!state) {
-      return
-    }
+    if (!state) return
     setState(prev => prev ? applyAction(prev, action) : prev)
   }, [state])
 
@@ -58,14 +63,13 @@ export function useTamagotchi() {
     setIsPlaying(false)
   }, [])
 
-  const playTime = state?.playTime ?? 0
-
   return { 
     state, 
     doAction, 
     isPlaying, 
     startGame, 
     resetGame,
-    playTime 
+    playTime: state?.playTime ?? 0
   }
 }
+
