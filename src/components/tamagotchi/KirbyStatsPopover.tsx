@@ -1,16 +1,14 @@
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
-import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
-import { Smile, Gamepad2, Heart, Zap, Utensils, RotateCcw, Clock } from "lucide-react";
+import { Smile, Gamepad2, Heart, Zap, Utensils, Clock } from "lucide-react";
 
 interface KirbyStatsPopoverProps {
   state: any;
   playTime: number;
   formatElapsedTime: (seconds: number) => string;
-  resetGame: () => void;
 }
 
-export function KirbyStatsPopover({ state, playTime, formatElapsedTime, resetGame }: KirbyStatsPopoverProps) {
+export function KirbyStatsPopover({ state, playTime, formatElapsedTime }: KirbyStatsPopoverProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -64,14 +62,7 @@ export function KirbyStatsPopover({ state, playTime, formatElapsedTime, resetGam
             <span className="text-xs font-bold w-8 text-right">{state.hunger}</span>
           </div>
         </div>
-        <Button
-          onClick={resetGame}
-          variant="outline"
-          size="sm"
-          className="mt-3 w-full text-xs border-pink-200 hover:bg-pink-50 flex items-center justify-center gap-2"
-        >
-          <span>Reiniciar juego</span> <RotateCcw size={16} />
-        </Button>
+        
       </PopoverContent>
     </Popover>
   );

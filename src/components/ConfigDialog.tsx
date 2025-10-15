@@ -16,6 +16,9 @@ export default function ConfigDialog() {
         <DialogHeader>
           <DialogTitle className="font-semibold text-pink-500">Configuración</DialogTitle>
         </DialogHeader>
+        <div className="flex flex-col gap-4">
+          <Button disabled className="w-48 bg-black text-white ">Cambiar tema</Button>
+        </div>
       </DialogContent>
     </Dialog>
     </div>

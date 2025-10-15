@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 export function FrecuentsQuestion() {
     return (
         <>
-        {/* Botón y Dialog de Preguntas frecuentes en esquina inferior izquierda */}
         <div className="absolute bottom-6 left-6 z-10">
           <Dialog>
             <DialogTrigger asChild>
