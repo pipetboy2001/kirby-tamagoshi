@@ -3,7 +3,7 @@ export type TamagotchiState = {
   happiness: number
   energy: number
   health: number
-  age: number // en días
+  age: number
   lastUpdated: number
-  playTime: number // en segundos
+  playTime: number
 }
