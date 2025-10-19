@@ -1,0 +1,130 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"files": {
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/pnpm-lock.yaml",
+			"!**/*.js",
+			"!**/*.jsx"
+		]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"complexity": {
+				"useOptionalChain": {
+					"fix": "safe",
+					"level": "warn"
+				},
+				"noForEach": {
+					"level": "info"
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"fix": "safe",
+					"level": "warn",
+					"options": {
+						"functions": ["clsx", "cva", "tw", "cn"]
+					}
+				}
+			},
+			"a11y": {
+				"useButtonType": {
+					"level": "off"
+				}
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noVar": {
+					"fix": "safe",
+					"level": "warn"
+				},
+				"noDocumentCookie": "off"
+			},
+			"style": {
+				"useTemplate": {
+					"fix": "safe",
+					"level": "warn"
+				},
+				"noNonNullAssertion": "off",
+				"useImportType": "off",
+				"useSelfClosingElements": {
+					"fix": "safe",
+					"level": "warn"
+				},
+				"useNodejsImportProtocol": "off",
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
+			},
+			"correctness": {
+				"noChildrenProp": "off",
+				"useExhaustiveDependencies": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
+			}
+		}
+	},
+	"formatter": {
+		"includes": [
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.json",
+			"!**/node_modules",
+			"!**/pnpm-lock.yaml",
+			"!**/*.js",
+			"!**/*.jsx"
+		],
+		"enabled": true,
+		"formatWithErrors": true,
+		"indentStyle": "space"
+	},
+	"javascript": {
+		"jsxRuntime": "transparent",
+		"linter": {
+			"enabled": true
+		},
+		"formatter": {
+			"enabled": true,
+			"bracketSameLine": true,
+			"bracketSpacing": true,
+			"lineWidth": 80,
+			"indentWidth": 2,
+			"arrowParentheses": "always",
+			"attributePosition": "multiline",
+			"indentStyle": "space",
+			"lineEnding": "lf",
+			"quoteStyle": "double",
+			"quoteProperties": "preserve",
+			"semicolons": "always",
+			"trailingCommas": "none",
+			"jsxQuoteStyle": "double"
+		}
+	},
+	"json": {
+		"linter": {
+			"enabled": true
+		},
+		"formatter": {
+			"enabled": true,
+			"trailingCommas": "none"
+		}
+	}
+}

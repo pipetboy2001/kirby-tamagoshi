@@ -1,13 +1,17 @@
-import { useState, useCallback, useEffect } from "react";
-import { createInitialState, applyAction, tick } from "../services/tamagotchiService";
+import { useCallback, useEffect, useState } from "react";
+import {
+  clearTamagotchiStorage,
+  loadIsPlaying,
+  loadTamagotchiState,
+  saveIsPlaying,
+  saveTamagotchiState
+} from "@/services/storageService";
 import type { TamagotchiState } from "@/types/tamagotchi";
 import {
-  loadTamagotchiState,
-  saveTamagotchiState,
-  loadIsPlaying,
-  saveIsPlaying,
-  clearTamagotchiStorage,
-} from "@/services/storageService";
+  applyAction,
+  createInitialState,
+  tick
+} from "../services/tamagotchiService";
 
 const MAX_AGE = 60;
 
@@ -44,7 +48,11 @@ export function useTamagotchi() {
       const newState = tick(state, elapsed);
 
       // Condiciones de muerte
-      if (newState.age >= MAX_AGE || newState.health <= 0 || newState.hunger <= 0) {
+      if (
+        newState.age >= MAX_AGE ||
+        newState.health <= 0 ||
+        newState.hunger <= 0
+      ) {
         clearTamagotchiStorage();
         setState(null);
         setIsPlaying(false);
@@ -84,6 +92,6 @@ export function useTamagotchi() {
     doAction,
     startGame,
     resetGame,
-    playTime: state?.playTime ?? 0,
+    playTime: state?.playTime ?? 0
   };
 }

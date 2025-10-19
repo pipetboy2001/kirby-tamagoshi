@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { useTamagotchi } from "./useTamagotchi";
+import { AlertTriangle, BatteryFull, Heart, Utensils } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { KIRBY_GIFS } from "@/const/kirbyState";
 import { getKirbyEmotion, getKirbyGif } from "@/lib/kirbyEmotion";
-import { Utensils, BatteryFull, Heart, AlertTriangle } from "lucide-react";
+import { useTamagotchi } from "./useTamagotchi";
 
 type ActionState = "idle" | "eating" | "playing" | "sleeping";
 
@@ -10,7 +10,7 @@ const CRITICAL_THRESHOLDS = {
   hunger: 20,
   energy: 20,
   happiness: 20,
-  health: 30,
+  health: 30
 };
 
 const ACTION_DURATION = 5000;
@@ -23,7 +23,9 @@ export function useTamagotchiUI() {
   const [showDeathDialog, setShowDeathDialog] = useState(false);
   const [deathReason, setDeathReason] = useState("");
 
-  const kirbyEmotion = tamagotchi.state ? getKirbyEmotion(tamagotchi.state) : null;
+  const kirbyEmotion = tamagotchi.state
+    ? getKirbyEmotion(tamagotchi.state)
+    : null;
 
   // 🔹 Selección de GIF
   const getCurrentGif = useCallback(() => {
@@ -47,7 +49,7 @@ export function useTamagotchiUI() {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${h > 0 ? h + "h " : ""}${m > 0 ? m + "m " : ""}${s}s`;
+    return `${h > 0 ? `${h}h ` : ""}${m > 0 ? `${m}m ` : ""}${s}s`;
   }, []);
 
   // 🔹 Acciones del jugador
@@ -56,7 +58,7 @@ export function useTamagotchiUI() {
       const map = {
         play: "playing",
         feed: "eating",
-        sleep: "sleeping",
+        sleep: "sleeping"
       } as const;
 
       const newAction = map[action];
@@ -75,13 +77,29 @@ export function useTamagotchiUI() {
 
     const result = [];
     if (hunger < CRITICAL_THRESHOLDS.hunger)
-      result.push({ icon: Utensils, text: "¡Kirby tiene hambre!", color: "text-red-500" });
+      result.push({
+        icon: Utensils,
+        text: "¡Kirby tiene hambre!",
+        color: "text-red-500"
+      });
     if (energy < CRITICAL_THRESHOLDS.energy)
-      result.push({ icon: BatteryFull, text: "Kirby está cansado", color: "text-orange-500" });
+      result.push({
+        icon: BatteryFull,
+        text: "Kirby está cansado",
+        color: "text-orange-500"
+      });
     if (happiness < CRITICAL_THRESHOLDS.happiness)
-      result.push({ icon: Heart, text: "Kirby está triste", color: "text-purple-500" });
+      result.push({
+        icon: Heart,
+        text: "Kirby está triste",
+        color: "text-purple-500"
+      });
     if (health < CRITICAL_THRESHOLDS.health)
-      result.push({ icon: AlertTriangle, text: "¡Salud crítica!", color: "text-red-600" });
+      result.push({
+        icon: AlertTriangle,
+        text: "¡Salud crítica!",
+        color: "text-red-600"
+      });
 
     return result;
   }, [tamagotchi.state]);
@@ -111,6 +129,6 @@ export function useTamagotchiUI() {
     showDeathDialog,
     deathReason,
     handleRestart,
-    alerts,
+    alerts
   };
 }

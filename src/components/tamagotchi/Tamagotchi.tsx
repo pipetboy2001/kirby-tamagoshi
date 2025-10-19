@@ -1,11 +1,18 @@
-import { Card, CardHeader } from "../ui/card";
-import { toast } from "sonner";
-import { KirbyActions } from "./KirbyActions";
-import { Clock, Calendar, Smile, Utensils, Gamepad2, BatteryFull } from "lucide-react";
+import {
+  BatteryFull,
+  Calendar,
+  Clock,
+  Gamepad2,
+  Smile,
+  Utensils
+} from "lucide-react";
 import { useEffect } from "react";
+import { toast } from "sonner";
 import { useTamagotchiUI } from "@/hooks/useTamagotchiUI";
-import { KirbyStatsPopover } from "./KirbyStatsPopover";
+import { Card, CardHeader } from "../ui/card";
+import { KirbyActions } from "./KirbyActions";
 import { KirbyDeathScreen } from "./KirbyDeathScreen";
+import { KirbyStatsPopover } from "./KirbyStatsPopover";
 
 export default function Tamagotchi() {
   const {
@@ -20,37 +27,42 @@ export default function Tamagotchi() {
     deathReason,
     handleRestart,
     alerts,
-    playTime,
+    playTime
   } = useTamagotchiUI();
 
   // Mostrar toasts solo cuando hay alertas críticas
   useEffect(() => {
-    alerts.forEach(alert =>
+    for (const alert of alerts) {
       toast(
         <div className="flex items-center gap-2">
-          <alert.icon className={`${alert.color} w-4 h-4`} />
+          <alert.icon className={`${alert.color} h-4 w-4`} />
           <span>{alert.text}</span>
         </div>,
         { duration: 4000 }
-      )
-    );
+      );
+    }
   }, [alerts]);
 
   // Pantalla de muerte
   if (showDeathDialog || !state) {
-    return <KirbyDeathScreen onRestart={handleRestart} deathReason={deathReason} />;
+    return (
+      <KirbyDeathScreen
+        onRestart={handleRestart}
+        deathReason={deathReason}
+      />
+    );
   }
 
   return (
-    <Card className="w-[20rem] h-[32rem] rounded-2xl flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
+    <Card className="flex h-[32rem] w-[20rem] flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50">
       {/* Header con tiempo y edad */}
-      <CardHeader className="w-full flex flex-col items-center justify-center mb-2 py-2 px-4 gap-1">
-        <div className="w-full flex flex-row items-center justify-between mb-1">
-          <span className="text-xs text-pink-600 font-semibold flex items-center gap-1">
+      <CardHeader className="mb-2 flex w-full flex-col items-center justify-center gap-1 px-4 py-2">
+        <div className="mb-1 flex w-full flex-row items-center justify-between">
+          <span className="flex items-center gap-1 font-semibold text-pink-600 text-xs">
             <Clock size={15} />
             {new Date().toLocaleTimeString()}
           </span>
-          <span className="text-xs text-pink-600 font-semibold flex items-center gap-1">
+          <span className="flex items-center gap-1 font-semibold text-pink-600 text-xs">
             <Calendar size={15} /> {state.age} días
           </span>
         </div>
@@ -63,31 +75,56 @@ export default function Tamagotchi() {
       </CardHeader>
 
       {/* GIF de Kirby y estado emocional */}
-      <div className="w-full max-w-[18rem] bg-white/80 rounded-3xl shadow-xl flex flex-col items-center justify-center border-2 border-pink-200 backdrop-blur-sm overflow-hidden p-6">
-        <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center border border-pink-100 mb-4">
+      <div className="flex w-full max-w-[18rem] flex-col items-center justify-center overflow-hidden rounded-3xl border-2 border-pink-200 bg-white/80 p-6 shadow-xl backdrop-blur-sm">
+        <div className="mb-4 flex items-center justify-center overflow-hidden rounded-2xl border border-pink-100 bg-gradient-to-br from-pink-100 to-purple-100">
           <img
             src={getCurrentGif()}
             alt={`Kirby ${currentAction}`}
-            className="w-full h-full object-contain p-2"
-            onError={(e) => (e.currentTarget.src = getCurrentGif())}
+            className="h-full w-full object-contain p-2"
+            onError={(e) => {
+              e.currentTarget.src = getCurrentGif();
+            }}
           />
         </div>
 
-        <div className={`text-sm font-bold ${kirbyMood?.color} text-center px-2 flex items-center justify-center gap-2`}>
-          {currentAction === "eating" && (<><span>¡Ñam ñam ñam!</span> <Utensils size={18} /></>)}
-          {currentAction === "playing" && (<><span>¡Jugando feliz!</span> <Gamepad2 size={18} /></>)}
-          {currentAction === "sleeping" && (<><span>Zzz...</span> <BatteryFull size={18} /></>)}
-          {!["eating", "playing", "sleeping"].includes(currentAction) && (<><span>{kirbyEmotion?.message}</span> <Smile size={18} /></>)}
+        <div
+          className={`font-bold text-sm ${kirbyMood?.color} flex items-center justify-center gap-2 px-2 text-center`}>
+          {currentAction === "eating" && (
+            <>
+              <span>¡Ñam ñam ñam!</span> <Utensils size={18} />
+            </>
+          )}
+          {currentAction === "playing" && (
+            <>
+              <span>¡Jugando feliz!</span> <Gamepad2 size={18} />
+            </>
+          )}
+          {currentAction === "sleeping" && (
+            <>
+              <span>Zzz...</span> <BatteryFull size={18} />
+            </>
+          )}
+          {!["eating", "playing", "sleeping"].includes(currentAction) && (
+            <>
+              <span>{kirbyEmotion?.message}</span> <Smile size={18} />
+            </>
+          )}
         </div>
       </div>
 
       {/* Botones de acción */}
-      <KirbyActions onAction={handleAction} disabled={state.energy < 10} />
+      <KirbyActions
+        onAction={handleAction}
+        disabled={state.energy < 10}
+      />
 
       {/* Estado general */}
-      <div className="text-center mt-4 text-xs text-pink-400">
+      <div className="mt-4 text-center text-pink-400 text-xs">
         Estado general:{" "}
-        {Math.round((state.hunger + state.happiness + state.energy + state.health) / 4)}%
+        {Math.round(
+          (state.hunger + state.happiness + state.energy + state.health) / 4
+        )}
+        %
       </div>
     </Card>
   );
