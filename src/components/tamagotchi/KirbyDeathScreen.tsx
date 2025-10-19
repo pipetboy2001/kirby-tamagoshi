@@ -1,15 +1,26 @@
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 
-export function KirbyDeathScreen({ onRestart, deathReason }: { onRestart: () => void; deathReason?: string }) {
+export function KirbyDeathScreen({
+  onRestart,
+  deathReason
+}: {
+  onRestart: () => void;
+  deathReason?: string;
+}) {
   return (
-    <Card className="w-[20rem] h-[32rem] rounded-2xl flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
-      <div className="text-6xl mb-4">💀</div>
-      <span className="text-2xl font-bold text-pink-500 mb-4">Kirby ha muerto</span>
-      <span className="mb-6 text-pink-400 text-center px-4">
-        {deathReason || "Kirby ha muerto. Reinicia el juego para volver a jugar."}
+    <Card className="flex h-[32rem] w-[20rem] flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50">
+      <div className="mb-4 text-6xl">💀</div>
+      <span className="mb-4 font-bold text-2xl text-pink-500">
+        Kirby ha muerto
       </span>
-      <Button onClick={onRestart} className="bg-gradient-to-r from-pink-400 to-purple-400 text-white hover:from-pink-500 hover:to-purple-500 shadow-lg px-6 py-3 text-lg rounded-full transition-all duration-300 transform hover:scale-105">
+      <span className="mb-6 px-4 text-center text-pink-400">
+        {deathReason ||
+          "Kirby ha muerto. Reinicia el juego para volver a jugar."}
+      </span>
+      <Button
+        onClick={onRestart}
+        className="transform rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-6 py-3 text-lg text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-pink-500 hover:to-purple-500">
         Reiniciar juego
       </Button>
     </Card>

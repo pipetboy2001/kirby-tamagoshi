@@ -12,7 +12,6 @@ export const KIRBY_GIFS = {
   playing: [
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXp0YWUya2RrN2F0czNxa2t4NTViZzZqMTdvaDV6ZDFhNHM2ZTlvNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uQkKavfX6TER2/giphy.gif",
     "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGhxazhwMXNpaXBqZnE1ZXBwYzc4OGN6dmliY2RidHVwc3dqbjhlZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u7DKttIWeHlok/giphy.gif"
-
   ],
   sleeping: [
     "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHQ0ZDVmaW9ldzdnMGwxc2p3Z3Mxdm5hazR0a2Q1NzVhc3B6eDh4aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nM2LLy0AeecUOEjEMZ/giphy.gif",
@@ -28,4 +27,4 @@ export const KIRBY_GIFS = {
     "https://gifdb.com/images/high/crying-kirby-shaking-7kxsw90oug3hzt0k.webp",
     "https://usagif.com/wp-content/uploads/gify/56-kirby-cant-believe-in-something-usagif.gif"
   ]
-}
+};
