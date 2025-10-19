@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { getKirbyEmotion } from '../../src/lib/kirbyEmotion';
+import { getKirbyEmotion, getKirbyGif } from '../../src/lib/kirbyEmotion';
 import type { TamagotchiState } from '../../src/types/tamagotchi';
+import { KIRBY_GIFS } from "../../src/const/kirbyState";
 
 describe('getKirbyEmotion', () => {
   it('debería devolver muy mal si el promedio es < 20 y ninguna estadística crítica está baja', () => {
@@ -48,7 +49,7 @@ describe('getKirbyEmotion', () => {
 
   it('debería devolver normal si el promedio es >= 40', () => {
     const state: TamagotchiState = {
-      hunger: 50, happiness: 40, energy: 40, health: 40,
+      hunger: 40, happiness: 40, energy: 40, health: 40,
     } as TamagotchiState;
     const result = getKirbyEmotion(state);
     expect(result.mood.status).toBe('normal');
@@ -71,5 +72,55 @@ describe('getKirbyEmotion', () => {
     const result = getKirbyEmotion(state);
     expect(result.mood.status).toBe('muy mal');
     expect(result.gifType).toBe('sad');
+  });
+});
+
+describe('getKirbyGif', () => {
+
+  it('debería devolver el gif correcto para la acción playing', () => {
+    const state: TamagotchiState = {
+      hunger: 60, happiness: 80, energy: 70, health: 70,
+    } as TamagotchiState;
+    const result = getKirbyGif("playing", getKirbyEmotion(state), 0);
+    expect(result).toBe(KIRBY_GIFS.playing[0]);
+  });
+  it('debería devolver el gif correcto para la acción sleeping', () => {
+    const state: TamagotchiState = {
+      hunger: 60, happiness: 60, energy: 60, health: 60,
+    } as TamagotchiState;
+    const result = getKirbyGif("sleeping", getKirbyEmotion(state), 0);
+    expect(result).toBe(KIRBY_GIFS.sleeping[0]);
+  });
+  it('debería devolver el gif correcto para emoción happy', () => {
+    const state: TamagotchiState = {
+      hunger: 90, happiness: 90, energy: 90, health: 90,
+    } as TamagotchiState;
+    const emotion = getKirbyEmotion(state);
+    const result = getKirbyGif("", emotion, 0);
+    expect(result).toBe(KIRBY_GIFS.happy[0]);
+  });
+  it('debería devolver el gif correcto para emoción sad', () => {
+    const state: TamagotchiState = {
+      hunger: 10, happiness: 10, energy: 10, health: 10,
+    } as TamagotchiState;
+    const emotion = getKirbyEmotion(state);
+    const result = getKirbyGif("", emotion, 0);
+    expect(result).toBe(KIRBY_GIFS.sad[0]);
+  });
+  it('debería devolver el gif correcto para emoción idle', () => {
+    const state: TamagotchiState = {
+      hunger: 50, happiness: 50, energy: 50, health: 50,
+    } as TamagotchiState;
+    const emotion = getKirbyEmotion(state);
+    const result = getKirbyGif("", { ...emotion, gifType: "idle" }, 0);
+    expect(result).toBe(KIRBY_GIFS.idle[0]);
+  });
+  it('debería devolver el gif idle si el tipo de emoción no existe', () => {
+    const state: TamagotchiState = {
+      hunger: 50, happiness: 50, energy: 50, health: 50,
+    } as TamagotchiState;
+    const emotion = getKirbyEmotion(state);
+    const result = getKirbyGif("", { ...emotion, gifType: "noExiste" as any }, 0);
+    expect(result).toBe(KIRBY_GIFS.idle[0]);
   });
 });
